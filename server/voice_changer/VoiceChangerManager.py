@@ -115,15 +115,21 @@ class VoiceChangerManager(ServerDeviceCallbacks):
             self.stored_setting[key] = val
             json.dump(self.stored_setting, open(STORED_SETTING_FILE, "w"))
 
-    def _get_gpuInfos(self):
-        devCount = torch.cuda.device_count()
-        gpus = []
-        for id in range(devCount):
-            name = torch.cuda.get_device_name(id)
-            memory = torch.cuda.get_device_properties(id).total_memory
-            gpu = {"id": id, "name": name, "memory": memory}
-            gpus.append(gpu)
-        return gpus
+   def _get_gpuInfos(self):
+    devCount = torch.cuda.device_count()
+    gpus = []
+    for id in range(devCount):
+        name = torch.cuda.get_device_name(id)
+        memory = torch.cuda.get_device_properties(id).total_memory
+        gpu = {"id": id, "name": name, "memory": memory}
+        gpus.append(gpu)
+    return gpus
+
+# Получаем информацию о всех GPU
+gpus = _get_gpuInfos()
+
+# Выбираем первые два GPU
+selected_gpus = gpus[:2]
 
     @classmethod
     def get_instance(cls, params: VoiceChangerParams):
