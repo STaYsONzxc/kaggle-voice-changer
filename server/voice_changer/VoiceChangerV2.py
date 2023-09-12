@@ -13,6 +13,7 @@ from typing import Any, Union
 
 from const import TMP_DIR
 import torch
+import torch.nn as nn
 import os
 import numpy as np
 from dataclasses import dataclass, asdict, field
